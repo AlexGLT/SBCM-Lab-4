@@ -24,4 +24,8 @@ int main()
 	std::cout << "Result of addition: ";
 	auto addition = PolAdd(numberA, numberB);
 	std::cout << addition->bitString << std::endl;
+
+	std::cout << "Trace of numberA: ";
+	auto trace = PolTr(numberA);
+	std::cout << trace << std::endl;
 }

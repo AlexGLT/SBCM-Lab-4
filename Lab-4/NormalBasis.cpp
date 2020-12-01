@@ -1,31 +1,37 @@
 #include "NormalBasis.h"
+#include <string>
 
 fieldElement::fieldElement()
 {
-	bitString = "1";
+	this->size = 191;
+	value = new int[this->size];
+	
+	std::fill(&value[0], &value[191], 0);
 
-	size = 1;
-
-	value = new int{ 1 };
+	for (int i = 0; i < 191; i++)
+	{
+		bitString += "0";
+	}
 }
 
-fieldElement::fieldElement(int size)
-{
-	std::string bitString = "";
-
-	this->size = size;
-
-	value = new int[size];
-}
+// fieldElement::fieldElement(int size)
+// {
+// 	std::string bitString = "";
+// 
+// 	this->size = size;
+// 
+// 	value = new int[size];
+// }
 
 fieldElement::fieldElement(std::string str)
 {
 	bitString = str;
 	size = str.size();
 
-	value = new int[size];
+//	value = new int[size];
+	value = new int[191];
 
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < 191; i++)
 	{
 		value[i] = static_cast<int>(str[i]) - 48;
 	}
@@ -51,9 +57,9 @@ void showBigInteger(std::shared_ptr<fieldElement> number, std::string numberName
 
 std::shared_ptr<fieldElement> PolAdd(std::shared_ptr<fieldElement> firstElement, std::shared_ptr<fieldElement> secondElement)
 {
-	auto sumElement = std::make_shared<fieldElement>(firstElement->size);
+	auto sumElement = std::make_shared<fieldElement>();
 
-	for (int i = 0; i < firstElement->size; i++)
+	for (int i = 0; i < 191; i++)
 	{
 		sumElement->value[i] = (firstElement->value[i] + secondElement->value[i]) % 2;
 
@@ -61,4 +67,27 @@ std::shared_ptr<fieldElement> PolAdd(std::shared_ptr<fieldElement> firstElement,
 	}
 
 	return sumElement;
+}
+
+char PolTr(std::shared_ptr<fieldElement> number)
+{
+	int trace = 0;
+
+	for (int i = 0; i < 191; i++)
+	{
+		trace += number->value[i];
+	}
+
+	trace %= 2;
+
+	if (trace == 0)
+	{
+		return '0';
+	}
+	else if (trace == 1)
+	{
+		return '1';
+	}
+
+	return 'F';
 }
