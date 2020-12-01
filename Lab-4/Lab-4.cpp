@@ -22,10 +22,14 @@ int main()
 //	auto generator = std::make_shared<fieldElement>("100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000001");
 
 	std::cout << "Result of addition: ";
-	auto addition = PolAdd(numberA, numberB);
+	auto addition = NormAdd(numberA, numberB);
 	std::cout << addition->bitString << std::endl;
 
 	std::cout << "Trace of numberA: ";
-	auto trace = PolTr(numberA);
+	auto trace = NormTr(numberA);
 	std::cout << trace << std::endl;
+
+	std::cout << "Result of square: ";
+	auto square = NormSquare(numberA);
+	std::cout << square->bitString << std::endl;
 }

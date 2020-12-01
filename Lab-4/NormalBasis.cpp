@@ -55,7 +55,7 @@ void showBigInteger(std::shared_ptr<fieldElement> number, std::string numberName
 	std::cout << std::endl;
 }
 
-std::shared_ptr<fieldElement> PolAdd(std::shared_ptr<fieldElement> firstElement, std::shared_ptr<fieldElement> secondElement)
+std::shared_ptr<fieldElement> NormAdd(std::shared_ptr<fieldElement> firstElement, std::shared_ptr<fieldElement> secondElement)
 {
 	auto sumElement = std::make_shared<fieldElement>();
 
@@ -69,7 +69,7 @@ std::shared_ptr<fieldElement> PolAdd(std::shared_ptr<fieldElement> firstElement,
 	return sumElement;
 }
 
-char PolTr(std::shared_ptr<fieldElement> number)
+char NormTr(std::shared_ptr<fieldElement> number)
 {
 	int trace = 0;
 
@@ -90,4 +90,28 @@ char PolTr(std::shared_ptr<fieldElement> number)
 	}
 
 	return 'F';
+}
+
+std::shared_ptr<fieldElement> NormSquare(std::shared_ptr<fieldElement> number, bool text)
+{
+	auto square = std::make_shared<fieldElement>();
+
+	square->value[0] = number->value[190];
+
+	for (int i = 1; i < 191; i++)
+	{
+		square->value[i] = number->value[i - 1];
+	}
+
+	if (text)
+	{
+		square->bitString = "";
+
+		for (int i = 0; i < 191; i++)
+		{
+			square->bitString += static_cast<char>(square->value[i] + 48);
+		}
+	}
+
+	return square;
 }
